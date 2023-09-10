@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/eurekaserver/ecommerce.eurekaserver.iml" filepath="$PROJECT_DIR$/.idea/modules/eurekaserver/ecommerce.eurekaserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gateway_service/ecommerce.gateway_service.iml" filepath="$PROJECT_DIR$/.idea/modules/gateway_service/ecommerce.gateway_service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gateway_service/ecommerce.gateway_service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/gateway_service/ecommerce.gateway_service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gateway_service/ecommerce.gateway_service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/gateway_service/ecommerce.gateway_service.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/neflixzuulservice.iml" filepath="$PROJECT_DIR$/neflixzuulservice.iml" />
     </modules>
   </component>
