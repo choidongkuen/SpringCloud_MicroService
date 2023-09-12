@@ -1,1 +1,4 @@
 rootProject.name = 'ecommerce'
+include 'userservice'
+include 'eurekaserver'
+
