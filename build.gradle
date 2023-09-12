@@ -22,6 +22,10 @@ allprojects {
     }
 }
 
+ext {
+    set('springCloudVersion', "2021.0.8")
+}
+
 subprojects {
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
@@ -38,6 +42,13 @@ subprojects {
     dependencies {
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
 }
 
 tasks.named('test') {
