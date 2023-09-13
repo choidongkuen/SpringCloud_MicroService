@@ -2,3 +2,16 @@
 
 ![image](https://github.com/choidongkuen/SpringCloud_MicroService/assets/96874318/ad46460f-d170-4945-8477-60925e5048ff)
 
+
+<hr>
+
+### 1. Users Service
+
+
+|기능| URI(API Gateway 적용)              |URI(API Gateway 미적용) | Http Method |
+|---|----------------------------------|---|---|
+| 사용자 정보 등록 | /user-service/users              | /users | **POST** |
+| 전체 사용자 조회 | /user-service/users              | /users | **GET** |
+| 사용자 정보, 주문 내역 조회 | /user-service/users/{user-id}    | /users/{user_id} | **GET** |
+| 작동 상태 확인 | /user-service/users/health_check | /users/health_check | **GET** |
+| 환영 메세지 | /user-service/users/welcome | /users/welcome | **GET** |

@@ -1,7 +1,0 @@
-plugins {
-}
-repositories {
-}
-dependencies {
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-}
