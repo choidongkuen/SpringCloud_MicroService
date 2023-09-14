@@ -1,3 +1,30 @@
 server:
-  port: 8080
+  port: 8000
+
+spring:
+  application:
+    name: spring-api-gateway-server
+  cloud:
+    gateway:
+      routes:
+        - id: first-service
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/first-service/**
+
+        - id: second-service
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/second-service/**
+  main:
+    web-application-type: reactive
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+
 
