@@ -1,4 +1,6 @@
 rootProject.name = 'ecommerce'
 include 'userservice'
 include 'eurekaserver'
+include 'spring_api_gateway'
+include 'gateway_service'
 
