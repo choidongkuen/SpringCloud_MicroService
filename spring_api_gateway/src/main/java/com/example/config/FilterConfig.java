@@ -6,9 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 // Spring Cloud Gateway 을 Java Code 로 적용하기
-@Configuration
+//@Configuration
 public class FilterConfig {
-    @Bean
+//    @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(r -> r.path("/first-service/**")

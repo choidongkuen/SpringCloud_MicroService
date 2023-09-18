@@ -15,14 +15,14 @@ public class GatewayServiceController {
 
     @GetMapping("/first-service")
     public String firstService(
-            @RequestHeader("first-service-header") String header){
+            @RequestHeader("first-request") String header){
         System.out.println("first-service-header : " + header);
         return "This is a first Service";
     }
 
     @GetMapping("/second-service")
     public String secondService(
-            @RequestHeader("second-service-header") String header) {
+            @RequestHeader("second-request") String header) {
 
         System.out.println("second-service-header : " + header);
         return "This is a second Service";
