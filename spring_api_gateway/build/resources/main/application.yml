@@ -4,6 +4,7 @@ server:
 spring:
   application:
     name: spring-api-gateway-server
+
   cloud:
     gateway:
       routes:
@@ -12,14 +13,27 @@ spring:
           predicates:
             - Path=/first-service/**
           filters:
-            - CustomFilterConfig
+            - CustomFilter
 
         - id: second-service
           uri: http://localhost:8082
           predicates:
             - Path=/second-service/**
           filters:
-            - CustomFilterConfig
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: Hi, There
+                preLogger: true
+                postLogger: true
+
+      # global filter 부분
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Cloud Gateway Global Filter
+            preLogger: true
+            postLogger: true
   main:
     web-application-type: reactive
 
