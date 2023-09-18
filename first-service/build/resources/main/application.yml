@@ -4,3 +4,10 @@ server:
 spring:
   application:
     name: first-service
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
