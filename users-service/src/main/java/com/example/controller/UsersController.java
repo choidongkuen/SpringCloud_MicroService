@@ -6,6 +6,7 @@ import com.example.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,6 @@ public class UsersController {
 
     @PostMapping("/users")
     public ResponseEntity<Long> createUser(UsersCreateRequestDto request) {
-        return ResponseEntity.ok(this.usersService.createUser(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.usersService.createUser(request));
     }
 }

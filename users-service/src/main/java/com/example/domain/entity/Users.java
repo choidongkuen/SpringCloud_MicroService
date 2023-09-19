@@ -1,9 +1,7 @@
 package com.example.domain.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.example.constant.RoleType;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
@@ -12,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Users {
     @Id
@@ -30,4 +28,7 @@ public class Users {
 
     @Column(nullable = false, unique = true)
     private String encryptedPassword;
+
+    @Enumerated(EnumType.STRING)
+    private RoleType role;
 }
