@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/gateway_service/ecommerce.gateway_service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/gateway_service/ecommerce.gateway_service.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/second-service/ecommerce.second-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/second-service/ecommerce.second-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring_api_gateway/ecommerce.spring_api_gateway.main.iml" filepath="$PROJECT_DIR$/.idea/modules/spring_api_gateway/ecommerce.spring_api_gateway.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/users-service/ecommerce.users-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/users-service/ecommerce.users-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/neflixzuulservice.iml" filepath="$PROJECT_DIR$/neflixzuulservice.iml" />
     </modules>
   </component>
