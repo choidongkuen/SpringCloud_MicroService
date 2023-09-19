@@ -5,6 +5,19 @@ spring:
   application:
     name: users-service
 
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 1111
+    url: jdbc:h2:tcp://localhost/~/${DATABASE_NAME:ecommerce}
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+
 eureka:
   client:
     register-with-eureka: true
@@ -16,3 +29,4 @@ eureka:
 
 greeting:
   message: Welcome to the Simple-Ecommerce;
+
