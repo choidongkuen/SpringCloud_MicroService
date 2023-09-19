@@ -21,5 +21,4 @@ public class UsersService {
         String encryptedPassword = this.bcryptPasswordEncoder.encode(request.getPassword());
         return this.usersRepository.save(request.toEntity(encryptedPassword)).getId();
     }
-
 }
