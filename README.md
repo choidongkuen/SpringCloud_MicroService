@@ -15,3 +15,21 @@
 | 사용자 정보, 주문 내역 조회 | /user-service/users/{user-id}    | /users/{user_id} | **GET** |
 | 작동 상태 확인 | /user-service/users/health_check | /users/health_check | **GET** |
 | 환영 메세지 | /user-service/users/welcome | /users/welcome | **GET** |
+
+<details>
+<summary>Users Service API 명세서</summary>
+<div markdown="1">
+
+1. 사용자 정보 등록
+
+```json
+{
+  "email": "danaver12@daum.net",
+  "name": "최동근",
+  "password": "ehdrms121212"
+}
+
+```
+
+</div>
+</details>
