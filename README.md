@@ -12,7 +12,7 @@
 |---|----------------------------------|---|---|
 | 사용자 정보 등록 | /users-service/users              | /users | **POST** |
 | 전체 사용자 조회 | /users-service/users              | /users | **GET** |
-| 사용자 정보, 주문 내역 조회 | /users-service/users/{user-id}    | /users/{user_id} | **GET** |
+| 사용자 정보, 주문 내역 조회 | /users-service/users/{userId}    | /users/{userId} | **GET** |
 | 작동 상태 확인 | /users-service/users/health_check | /users/health_check | **GET** |
 | 환영 메세지 | /users-service/users/welcome | /users/welcome | **GET** |
 
@@ -46,7 +46,7 @@ POST /users-service/users
 
 요청
 ```json
-GET /users-service/users
+GET /users-service/users/{userId}
 ```
 
 응답
