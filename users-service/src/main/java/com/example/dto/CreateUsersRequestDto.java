@@ -15,7 +15,7 @@ import java.util.UUID;
 @Setter
 @Builder
 @AllArgsConstructor
-public class UsersCreateRequestDto {
+public class CreateUsersRequestDto {
     @Email(message = "This is not an email format")
     @NotBlank(message = "Email Cannot be null")
     private String email;

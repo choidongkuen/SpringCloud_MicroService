@@ -1,6 +1,7 @@
 package com.example.domain.entity;
 
 import com.example.constant.RoleType;
+import com.example.dto.GetUsersResponseDto;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,4 +32,12 @@ public class Users {
 
     @Enumerated(EnumType.STRING)
     private RoleType role;
+
+    public GetUsersResponseDto toGetUsersResponseEntity() {
+        return GetUsersResponseDto.builder()
+                .name(name)
+                .email(email)
+                .userId(userId)
+                .build();
+    }
 }

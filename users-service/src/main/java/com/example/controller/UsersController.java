@@ -1,6 +1,7 @@
 package com.example.controller;
 
-import com.example.dto.UsersCreateRequestDto;
+import com.example.dto.CreateUsersRequestDto;
+import com.example.dto.GetUsersResponseDto;
 import com.example.properties.MessageProperties;
 import com.example.service.UsersService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -35,7 +37,21 @@ public class UsersController {
 
     @PostMapping
     public ResponseEntity<Long> createUser(
-            @RequestBody @Valid UsersCreateRequestDto request) {
+            @RequestBody @Valid CreateUsersRequestDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.usersService.createUser(request));
     }
+
+    @GetMapping
+    public ResponseEntity<List<GetUsersResponseDto>> getAllUsers() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.usersService.getAllUsers());
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<GetUsersResponseDto> getUser(
+            @PathVariable String userId
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.usersService.getUser(userId));
+    }
+
+
 }
