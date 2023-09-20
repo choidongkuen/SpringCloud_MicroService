@@ -41,7 +41,33 @@ POST /users-service/users
 
 <hr>
 
-[2. 사용자 정보 조회]
+[2. 사용저 전체 정보 조회]
+<br>
+
+요청
+```json
+GET /users-service/users
+```
+
+응답
+```json
+[
+    {
+        "email": "danaver12@daum.net",
+        "name": "choidongkuen",
+        "userId": "882ffb70-cea8-479c-b3b6-92b347d983dd"
+    },
+    {
+        "email": "hello12@daum.net",
+        "name": "박건구",
+        "userId": "a42a3d69-7495-4129-9e31-9b4e3b3578cf"
+    }
+]
+```
+
+<hr>
+
+[3. 사용자 정보 조회]
 <br>
 
 요청
