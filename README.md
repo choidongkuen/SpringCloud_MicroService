@@ -46,7 +46,7 @@ POST /users-service/users
 
 요청
 ```json
-GET /users-service/user
+GET /users-service/users
 ```
 
 응답
