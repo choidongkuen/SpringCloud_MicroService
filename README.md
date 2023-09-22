@@ -87,3 +87,23 @@ GET /users-service/users/{userId}
 
 </div>
 </details>
+
+<hr>
+
+### 2. Catalogs Service
+
+|기능| URI(API Gateway 적용)              |URI(API Gateway 미적용) | Http Method |
+|---|----------------------------------|---|---|
+| 카탈로그 조회 | /catalogs-service/catalogs              | /catalogs | **GET** |
+| 카탈로그 삭제 | /catalogs-service/catalogs/id              | /catalogs/id | **DELETE** |
+| 카탈로그 등록 | /catalogs-service/catalogs    | /catalogs | **POST** |
+| 작동 상태 확인 | /catalogs-service/catalogs/health_check | /catalogs/health_check | **GET** |
+
+<details>
+<summary>Catalogs Service API 명세서</summary>
+<div markdown="1">
+<br>
+
+
+
+
