@@ -5,4 +5,5 @@ include 'spring_api_gateway'
 include 'first-service'
 include 'second-service'
 include 'users-service'
+include 'catalogs-service'
 

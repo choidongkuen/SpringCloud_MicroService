@@ -8,11 +8,12 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.28/a2ff5da8bcd8b1b26f36b806ced63213362c6dcc/lombok-1.18.28.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/2.7.15/1208a78ea8722a4af167f658ffd22bf29358da40/spring-boot-configuration-processor-2.7.15.jar" />
         </processorPath>
+        <module name="ecommerce.catalogs-service.main" />
         <module name="ecommerce.first-service.main" />
         <module name="ecommerce.second-service.main" />
-        <module name="ecommerce.eurekaserver.main" />
         <module name="ecommerce.userservice.main" />
         <module name="ecommerce.spring_api_gateway.main" />
+        <module name="ecommerce.eurekaserver.main" />
         <module name="ecommerce.users-service.main" />
       </profile>
     </annotationProcessing>
