@@ -13,6 +13,7 @@
         <module name="ecommerce.second-service.main" />
         <module name="ecommerce.userservice.main" />
         <module name="ecommerce.spring_api_gateway.main" />
+        <module name="ecommerce.orders-service.main" />
         <module name="ecommerce.eurekaserver.main" />
         <module name="ecommerce.users-service.main" />
       </profile>

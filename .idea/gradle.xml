@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/catalogs-service" />
             <option value="$PROJECT_DIR$/eurekaserver" />
             <option value="$PROJECT_DIR$/first-service" />
+            <option value="$PROJECT_DIR$/orders-service" />
             <option value="$PROJECT_DIR$/second-service" />
             <option value="$PROJECT_DIR$/spring_api_gateway" />
             <option value="$PROJECT_DIR$/users-service" />
