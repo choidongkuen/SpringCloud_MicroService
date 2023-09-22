@@ -1,5 +1,6 @@
 package com.example.domain.entity;
 
+import com.example.dto.GetCatalogsResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,4 +31,14 @@ public class Catalogs {
 
     @Column(name = "unit_price", nullable = false)
     private int unitPrice;
+
+    public GetCatalogsResponseDto toGetCatalogsResponseDto() {
+        return GetCatalogsResponseDto.builder()
+                .id(id)
+                .productId(productId)
+                .productName(productName)
+                .stock(stock)
+                .unitPrice(unitPrice)
+                .build();
+    }
 }

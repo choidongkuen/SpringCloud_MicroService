@@ -3,7 +3,6 @@ package com.example.service;
 import com.example.domain.entity.Users;
 import com.example.domain.repository.UsersRepository;
 import com.example.dto.CreateUsersRequestDto;
-import com.example.dto.GetOrdersResponseDto;
 import com.example.dto.GetUsersResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
