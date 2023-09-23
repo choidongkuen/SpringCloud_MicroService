@@ -25,10 +25,6 @@ public class UsersController {
     private final UsersService usersService;
     private final Environment environment;
 
-    // @ConfigurationProperties 대신 @Value 사용 가능(Relaxed Binding x)
-    @Value("${greeting.message}")
-    private String message;
-
     @GetMapping("/health-check")
     public String status() {
         return String.format("It's Working in User Service on PORT %s",

@@ -1,5 +1,6 @@
 package com.example.dto;
 
+import com.example.constant.RoleType;
 import com.example.domain.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +33,7 @@ public class CreateUsersRequestDto {
         return Users.builder()
                 .email(email)
                 .name(name)
+                .role(RoleType.ROLE_USER)
                 .encryptedPassword(encryptedPassword)
                 .userId(UUID.randomUUID().toString())
                 .build();

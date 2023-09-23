@@ -30,7 +30,7 @@ spring:
                 postLogger: true
 
         - id: user-service
-          uri: lb://USERS-SE®RVICE # data 을 forwarding 할 eureka server
+          uri: lb://USERS-SERVICE # data 을 forwarding 할 eureka server
           predicates:
             - Path=/users-service/** # 실제 클라이언트의 요쳥 형식
 
@@ -38,6 +38,11 @@ spring:
           uri: lb://CATALOGS-SERVICE
           predicates:
             - Path=/catalogs-service/**
+
+        - id: orders-service
+          uri: lb://ORDERS-SERVICE
+          predicates:
+            - Path=/orders-service/**
 
       # global filter 부분
       default-filters:
