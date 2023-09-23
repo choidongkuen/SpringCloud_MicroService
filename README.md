@@ -184,7 +184,7 @@ DELETE /catalogs-service/catalogs/1
 |기능| URI(API Gateway 적용)              |URI(API Gateway 미적용) | Http Method |
 |---|----------------------------------|---|---|
 | 사용자별 주문 등록 | /orders-service/{user_id}/orders              | /{user_id}/orders | **POST** |
-| 사용자별 주문 내역 조회 | /orders-service/{ㅕuser_id}/orders              | /{user_id}/orders | **GET** |
+| 사용자별 주문 내역 조회 | /orders-service/{user_id}/orders              | /{user_id}/orders | **GET** |
 | 작동 상태 확인 | /orders-service/health_check | /orders-service/health_check | **GET** |
 
 
