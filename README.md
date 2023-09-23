@@ -36,6 +36,7 @@ POST /users-service/users
 
 응답
 ```json
+// 201 Created
 1
 ```
 
@@ -51,6 +52,7 @@ GET /users-service/users
 
 응답
 ```json
+// 200 Ok
 [
     {
         "email": "danaver12@daum.net",
@@ -77,6 +79,7 @@ GET /users-service/users/{userId}
 
 응답
 ```json
+// 200 Ok
 {
   "email": "danaver12@daum.net",
   "name" : "최동근",
@@ -87,3 +90,116 @@ GET /users-service/users/{userId}
 
 </div>
 </details>
+
+<hr>
+
+### 2. Catalogs Service
+
+|기능| URI(API Gateway 적용)              |URI(API Gateway 미적용) | Http Method |
+|---|----------------------------------|---|---|
+| 카탈로그 조회 | /catalogs-service/catalogs              | /catalogs | **GET** |
+| 카탈로그 삭제 | /catalogs-service/catalogs/id              | /catalogs/id | **DELETE** |
+| 카탈로그 등록 | /catalogs-service/catalogs    | /catalogs | **POST** |
+| 작동 상태 확인 | /catalogs-service/catalogs/health_check | /catalogs/health_check | **GET** |
+
+<details>
+<summary>Catalogs Service API 명세서</summary>
+<div markdown="1">
+<br>
+
+[1. 카탈로그 등록]
+<br>
+
+요청
+```json
+POST /catalogs-service/catalogs
+{
+    "productId": "CATALOGS-02",
+    "productName": "제품2",
+    "stock": 12,
+    "unitPrice": 1002
+}
+```
+
+응답
+```json
+// 201 Created
+1
+```
+
+<br>
+
+[2. 카탈로그 전체 조회]
+<br>
+
+요청
+```json
+GET /catalogs-service/catalogs
+```
+
+응답
+```json
+// 200 Ok
+[
+    {
+        "id": 2,
+        "productId": "CATALOGS-01",
+        "productName": "제품",
+        "stock": 12,
+        "unitPrice": 100
+    },
+    {
+        "id": 3,
+        "productId": "CATALOGS-02",
+        "productName": "제품2",
+        "stock": 12,
+        "unitPrice": 1002
+    }
+]
+```
+
+<br>
+
+[3. 카탈로그 삭제]
+<br>
+
+요청
+```json
+DELETE /catalogs-service/catalogs/1
+```
+
+응답
+```json
+// 200 Ok
+```
+
+
+</div>
+</details>
+
+<hr>
+
+### 3. Orders Service
+
+|기능| URI(API Gateway 적용)              |URI(API Gateway 미적용) | Http Method |
+|---|----------------------------------|---|---|
+| 사용자별 주문 등록 | /orders-service/{user_id}/orders              | /{user_id}/orders | **POST** |
+| 사용자별 주문 내역 조회 | /orders-service/{user_id}/orders              | /{user_id}/orders | **GET** |
+| 작동 상태 확인 | /orders-service/health_check | /orders-service/health_check | **GET** |
+
+
+<details>
+<summary>Orders Service API 명세서</summary>
+<div markdown="1">
+<br>
+
+[1. 사용자별 주문 등록]
+<br>
+
+요청
+```json
+// POST /orders-service/{user_id}/orders
+{
+  "productId" :
+```
+
