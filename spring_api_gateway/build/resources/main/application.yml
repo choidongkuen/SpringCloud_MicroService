@@ -29,7 +29,7 @@ spring:
                 preLogger: true
                 postLogger: true
 
-        - id: user-service
+        - id: users-service
           uri: lb://USERS-SERVICE # data 을 forwarding 할 eureka server
           predicates:
             - Path=/users-service/** # 실제 클라이언트의 요쳥 형식

@@ -41,4 +41,8 @@ public class Catalogs {
                 .unitPrice(unitPrice)
                 .build();
     }
+
+    public void minusProduct(int amount) {
+        this.stock -= amount;
+    }
 }

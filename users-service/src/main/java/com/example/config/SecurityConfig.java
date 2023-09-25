@@ -20,7 +20,9 @@ public class SecurityConfig {
                 .headers().frameOptions().disable() // h2-console 보기 위함
                 .and()
                 .authorizeRequests()
-                .antMatchers("/users-service/users/**") // users/** 해당하는 모든 요청은 인증 필요 x
+                .antMatchers("/users-service/users/**",
+                        "/orders-service/**"
+                ) // users/** 해당하는 모든 요청은 인증 필요 x
                 .permitAll()
                 .anyRequest().authenticated();
 

@@ -1,6 +1,5 @@
 package com.example.domain.entity;
 
-import com.example.dto.GetCatalogsResponseDto;
 import com.example.dto.GetOrdersResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,16 +38,18 @@ public class Orders extends BaseEntity {
     @Column(name = "total_price",nullable = false)
     private int totalPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Users users;
+    @Column(name = "usr_id",nullable = false)
+    private String userId;
 
     public GetOrdersResponseDto toGetOrdersResponseDto() {
         return GetOrdersResponseDto.builder()
                 .productId(productId)
+                .productName(productName)
                 .stock(stock)
                 .unitPrice(unitPrice)
                 .totalPrice(totalPrice)
                 .orderId(orderId)
+                .OrderedAt(getCreatedAt())
                 .build();
     }
 }
