@@ -188,6 +188,7 @@ DELETE /catalogs-service/catalogs/1
 | 작동 상태 확인 | /orders-service/health_check | /orders-service/health_check | **GET** |
 
 
+
 <details>
 <summary>Orders Service API 명세서</summary>
 <div markdown="1">
@@ -198,8 +199,82 @@ DELETE /catalogs-service/catalogs/1
 
 요청
 ```json
-// POST /orders-service/{user_id}/orders
+// POST /orders-service/{userId}/orders
 {
-  "productId" :
+  "productId": "CATALOGS-01",
+  "productName": "제품1",
+  "stock": 20,
+  "unitPrice": 1000
+}
 ```
 
+응답
+```json
+// 201 Created
+1
+```
+
+<br> 
+
+
+
+[2. 사용자 대한 모든 주문 조회]
+<br>
+
+요청
+```json
+// GET /orders-service/{userId}/orders
+```
+<br>
+
+응답
+```json
+// 200 Ok
+[
+    {
+        "productId": "CATALOGS-02",
+        "productName": "제품2",
+        "stock": 50,
+        "unitPrice": 1000,
+        "totalPrice": 50000,
+        "orderId": "d5da68f7-f805-4c36-aa73-1da3b2650c61",
+        "orderedAt": "2023-09-25T09:58:17.476955"
+    },
+    {
+        "productId": "CATALOGS-01",
+        "productName": "제품1",
+        "stock": 50,
+        "unitPrice": 1000,
+        "totalPrice": 50000,
+        "orderId": "a63cb1e8-edd0-415b-8836-8f8210173ece",
+        "orderedAt": "2023-09-25T10:05:45.941925"
+    }
+]
+```
+
+<br>
+
+[3. 주문 아이디에 해당하는 주문 조회]
+<br>
+
+요청
+```json
+GET /orders-service/{orderId}/order
+```
+
+<br>
+
+응답
+```json
+// 200 Ok
+{
+    "productId": "CATALOGS-01",
+    "productName": "제품1",
+    "stock": 50,
+    "unitPrice": 1000,
+    "totalPrice": 50000,
+    "orderId": "0960b7c8-1411-4071-b2e1-d2fb2af7e773",
+    "orderedAt": "2023-09-25T10:13:10.429338"
+}
+
+```
