@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "greeting",
+      "type": "com.example.properties.MessageProperties",
+      "sourceType": "com.example.properties.MessageProperties"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}
