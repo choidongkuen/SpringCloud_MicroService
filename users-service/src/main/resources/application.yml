@@ -34,6 +34,4 @@ eureka:
   instance:
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.instance_id:${random.value}}
 
-#greeting:
-#  message: Welcome to the Simple-Ecommerce;
 

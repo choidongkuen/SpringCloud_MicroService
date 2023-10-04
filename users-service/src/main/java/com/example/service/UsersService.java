@@ -6,6 +6,8 @@ import com.example.dto.CreateUsersRequestDto;
 import com.example.dto.GetUsersResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,10 +19,16 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class UsersService {
+public class UsersService implements UserDetailsService {
 
     private final UsersRepository usersRepository;
     private final BCryptPasswordEncoder bcryptPasswordEncoder;
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return this.usersRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("일치하는 회원이 존재하지 않습니다."));
+    }
 
     @Transactional
     public Long createUser(CreateUsersRequestDto request) {
@@ -42,5 +50,4 @@ public class UsersService {
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found"))
                 .toGetUsersResponseEntity();
     }
-
 }
