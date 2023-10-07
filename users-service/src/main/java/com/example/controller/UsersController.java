@@ -17,11 +17,9 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/users-service/users")
+@RequestMapping("/users")
 @RestController
 public class UsersController {
-
-    private final MessageProperties messageProperties;
     private final UsersService usersService;
     private final Environment environment;
 
