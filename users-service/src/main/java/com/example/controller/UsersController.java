@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,6 +23,8 @@ import java.util.List;
 public class UsersController {
     private final UsersService usersService;
     private final Environment environment;
+    private final BCryptPasswordEncoder bcryptPasswordEncoder;
+
 
     @GetMapping("/health-check")
     public String status() {
@@ -29,17 +32,22 @@ public class UsersController {
                 environment.getProperty("local.server.port"));
     }
 
+    // 유저 생성
+    // POST : http://localhost:8080/users
     @PostMapping
     public ResponseEntity<Long> createUser(
             @RequestBody @Valid CreateUsersRequestDto request) {
+        request.setPassword(this.bcryptPasswordEncoder.encode(request.getPassword()));
         return ResponseEntity.status(HttpStatus.CREATED).body(this.usersService.createUser(request));
     }
-
+    // 모든 유저 조회
+    // GET : http://localhost:8080/users
     @GetMapping
     public ResponseEntity<List<GetUsersResponseDto>> getAllUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(this.usersService.getAllUsers());
     }
-
+    // id 유저 조회
+    // GET : http://localhost:8080/users/{userID}
     @GetMapping("/{userId}")
     public ResponseEntity<GetUsersResponseDto> getUser(
             @PathVariable String userId

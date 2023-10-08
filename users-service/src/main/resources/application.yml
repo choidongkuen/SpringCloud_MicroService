@@ -34,4 +34,13 @@ eureka:
   instance:
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.instance_id:${random.value}}
 
+logging:
+  level:
+    com.example.service.userservice: DEBUG
 
+
+jwt:
+  token:
+    access-expiration: 360000
+  secret:
+    key: user_token

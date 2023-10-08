@@ -1,8 +1,9 @@
 package com.example.security;
 
+import com.example.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,8 +14,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
-@Configuration
 public class SecurityConfig {
+    private final UsersService usersService;
+    private final Environment environment;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -22,22 +24,24 @@ public class SecurityConfig {
                 .headers().frameOptions().disable()
                 .and()
                 .authorizeRequests().antMatchers("/**")
-                .hasIpAddress("172.30.1.3") // local ip 요청만 허용
+                .permitAll()
                 .and()
                 .addFilter(getUserAuthenticationFilter());
+
 
         return http.build();
     }
 
     /* UserAuthenticationFilter */
     private UserAuthenticationFilter getUserAuthenticationFilter() throws Exception {
-        UserAuthenticationFilter userAuthenticationFilter = new UserAuthenticationFilter();
-        userAuthenticationFilter.setAuthenticationManager(authenticationManager(new AuthenticationConfiguration()));
+        UserAuthenticationFilter userAuthenticationFilter
+                = new UserAuthenticationFilter(getAuthenticationManager(new AuthenticationConfiguration()),usersService,environment);
+        userAuthenticationFilter.setAuthenticationManager(getAuthenticationManager(new AuthenticationConfiguration()));
         return userAuthenticationFilter;
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager getAuthenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 

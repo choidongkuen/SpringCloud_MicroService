@@ -6,6 +6,7 @@ import com.example.dto.CreateUsersRequestDto;
 import com.example.dto.GetUsersResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,18 +23,20 @@ import java.util.stream.Collectors;
 public class UsersService implements UserDetailsService {
 
     private final UsersRepository usersRepository;
-    private final BCryptPasswordEncoder bcryptPasswordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return this.usersRepository.findByEmail(email)
+        Users users = this.usersRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("일치하는 회원이 존재하지 않습니다."));
+        return new User(users.getEmail(),
+                users.getEncryptedPassword(),
+                true, true, true, true,
+                users.getAuthorities());
     }
 
     @Transactional
     public Long createUser(CreateUsersRequestDto request) {
-        String encryptedPassword = this.bcryptPasswordEncoder.encode(request.getPassword());
-        return this.usersRepository.save(request.toEntity(encryptedPassword)).getId();
+        return this.usersRepository.save(request.toEntity()).getId();
     }
 
     @Transactional(readOnly = true)
@@ -50,4 +53,14 @@ public class UsersService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found"))
                 .toGetUsersResponseEntity();
     }
+
+    @Transactional
+    public GetUsersResponseDto getUserDetailsByEmail(String email) {
+        return this.usersRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found"))
+                .toGetUsersResponseEntity();
+
+    }
+
+
 }

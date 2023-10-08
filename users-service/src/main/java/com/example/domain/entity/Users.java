@@ -46,6 +46,8 @@ public class Users implements UserDetails {
                 .build();
     }
 
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();

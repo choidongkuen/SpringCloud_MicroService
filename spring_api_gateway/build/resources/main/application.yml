@@ -30,13 +30,41 @@ spring:
                 postLogger: true
 
 ####################################################################################
+#        - id: users-service
+#          uri: lb://USERS-SERVICE # data 을 forwarding 할 eureka server
+#          predicates:
+#            - Path=/users-service/** # 실제 클라이언트의 요쳥 형식
+
+# 클리이언트의 요청을 받아서 Predicates 을 보고 해당 URL 을 다른 URL 로 요청보낼 수 있다.(원하는 형태로 변경 가능)
         - id: users-service
-          uri: lb://USERS-SERVICE # data 을 forwarding 할 eureka server
+          uri: lb://USERS-SERVICE
           predicates:
-            - Path=/users-service/** # 실제 클라이언트의 요쳥 형식
+            - Path=/users-service/users
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/users-service/(?<segment>.*), /$\{segment}
+
+        ### 유저 로그인
+        - id: users-service
+          uri: lb://USERS-SERVICE
+          predicates:
+            - Path=/users-service/login
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/users-service/(?<segment>.*), /$\{segment}
+
+        ### 유저 관련 일반 기능
+        - id: users-service
+          uri: lb://USERS-SERVICE
+          predicates:
+            - Path=/users-service/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/users-service/(?<segment>.*), /$\{segment}
 ####################################################################################
-
-
         - id: catalogs-service
           uri: lb://CATALOGS-SERVICE
           predicates:
