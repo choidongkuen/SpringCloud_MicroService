@@ -2,11 +2,10 @@ package com.example.controller;
 
 import com.example.dto.CreateUsersRequestDto;
 import com.example.dto.GetUsersResponseDto;
-import com.example.properties.MessageProperties;
+import com.example.properties.ConfigProperties;
 import com.example.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +22,8 @@ import java.util.List;
 public class UsersController {
     private final UsersService usersService;
     private final Environment environment;
+    private final ConfigProperties configProperties;
     private final BCryptPasswordEncoder bcryptPasswordEncoder;
-
 
     @GetMapping("/health-check")
     public String status() {
@@ -55,5 +54,10 @@ public class UsersController {
         return ResponseEntity.status(HttpStatus.OK).body(this.usersService.getUser(userId));
     }
 
-
+    // 설정정보를 조회하는 컨트롤러
+    @GetMapping("/config")
+    public String config() {
+        log.info("secret key:" + this.configProperties.getSecretKey());
+        return this.configProperties.getSecretKey();
+    }
 }

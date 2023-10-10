@@ -1,9 +1,9 @@
 package com.example.security;
 
+import com.example.properties.ConfigProperties;
 import com.example.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,14 +16,15 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final UsersService usersService;
-    private final Environment environment;
+    private final ConfigProperties configProperties;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .headers().frameOptions().disable()
                 .and()
-                .authorizeRequests().antMatchers("/**")
+                .authorizeRequests().antMatchers("/users/config")
                 .permitAll()
                 .and()
                 .addFilter(getUserAuthenticationFilter());
@@ -35,7 +36,7 @@ public class SecurityConfig {
     /* UserAuthenticationFilter */
     private UserAuthenticationFilter getUserAuthenticationFilter() throws Exception {
         UserAuthenticationFilter userAuthenticationFilter
-                = new UserAuthenticationFilter(getAuthenticationManager(new AuthenticationConfiguration()),usersService,environment);
+                = new UserAuthenticationFilter(getAuthenticationManager(new AuthenticationConfiguration()), usersService, configProperties);
         userAuthenticationFilter.setAuthenticationManager(getAuthenticationManager(new AuthenticationConfiguration()));
         return userAuthenticationFilter;
     }

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/catalogs-service/ecommerce.catalogs-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/catalogs-service/ecommerce.catalogs-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/config-service/ecommerce.config-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/config-service/ecommerce.config-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/eurekaserver/ecommerce.eurekaserver.iml" filepath="$PROJECT_DIR$/.idea/modules/eurekaserver/ecommerce.eurekaserver.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/eurekaserver/ecommerce.eurekaserver.main.iml" filepath="$PROJECT_DIR$/.idea/modules/eurekaserver/ecommerce.eurekaserver.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/first-service/ecommerce.first-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/first-service/ecommerce.first-service.main.iml" />

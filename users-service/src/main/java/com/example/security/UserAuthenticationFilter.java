@@ -2,11 +2,13 @@ package com.example.security;
 
 import com.example.dto.GetUsersResponseDto;
 import com.example.dto.LoginDto;
+import com.example.properties.ConfigProperties;
 import com.example.service.UsersService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * - attemptAuthentication 으로 인증 시도
@@ -33,17 +34,18 @@ import java.util.Objects;
 @Slf4j
 @Component
 public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+    private ConfigProperties configProperties;
     private UsersService usersService;
-    private Environment environment;
 
 
     /* AuthenticationManager 는 SecurityConfig 에서 Bean 으로 이미 등록됨 */
     public UserAuthenticationFilter(AuthenticationManager authenticationManager,
-                                    UsersService usersService, Environment environment
+                                    UsersService usersService, ConfigProperties configProperties
     ) {
         super.setAuthenticationManager(authenticationManager);
         this.usersService = usersService;
-        this.environment = environment;
+        this.configProperties = configProperties;
+        log.info("secret key : " + configProperties.getSecretKey());
     }
 
     /* 인증 시도, UserDetailsService 의 loadUserByUsername 메소드 호출 */
@@ -77,8 +79,8 @@ public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilt
         String token = Jwts.builder()
                 .setSubject(userDto.getUserId())
                 .setExpiration(new Date(System.currentTimeMillis()
-                        + Long.parseLong(Objects.requireNonNull(environment.getProperty("jwt.token.access-expiration")))))
-                .signWith(SignatureAlgorithm.HS256, environment.getProperty("jwt.secret.key"))
+                        + configProperties.getTokenAccessExpiration()))
+                .signWith(SignatureAlgorithm.HS256, configProperties.getSecretKey())
                 .compact();
 
         response.addHeader("authorization","Bearer " + token); // 생성한 jwt 을 반환

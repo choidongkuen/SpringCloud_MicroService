@@ -4,8 +4,24 @@
       "name": "greeting",
       "type": "com.example.properties.MessageProperties",
       "sourceType": "com.example.properties.MessageProperties"
+    },
+    {
+      "name": "jwt",
+      "type": "com.example.properties.ConfigProperties",
+      "sourceType": "com.example.properties.ConfigProperties"
     }
   ],
-  "properties": [],
+  "properties": [
+    {
+      "name": "jwt.secret-key",
+      "type": "java.lang.String",
+      "sourceType": "com.example.properties.ConfigProperties"
+    },
+    {
+      "name": "jwt.token-access-expiration",
+      "type": "java.lang.Long",
+      "sourceType": "com.example.properties.ConfigProperties"
+    }
+  ],
   "hints": []
 }

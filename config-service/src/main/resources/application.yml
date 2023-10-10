@@ -4,10 +4,9 @@ server:
 spring:
   application:
     name: spring-cloud-config-server
-
   cloud:
     config:
       server:
         git:
-          # git file with file protocol
-          uri: file:///Users/DongKuen/Desktop/Github/spring_cloud_config
+          # github address
+          uri: https://github.com/choidongkuen/spring_cloud_config_repo

@@ -65,7 +65,7 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/users-service/(?<segment>.*), /$\{segment}
             # jwt 인증 관련 필터
-            - AuthorizationHeaderFilter
+#            - AuthorizationHeaderFilter
 ####################################################################################
         - id: catalogs-service
           uri: lb://CATALOGS-SERVICE
