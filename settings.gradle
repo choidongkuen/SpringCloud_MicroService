@@ -7,4 +7,5 @@ include 'second-service'
 include 'users-service'
 include 'catalogs-service'
 include 'orders-service'
+include 'config-service'
 

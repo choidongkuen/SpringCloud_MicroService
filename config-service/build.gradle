@@ -1,0 +1,11 @@
+plugins {
+}
+
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    implementation 'org.springframework.cloud:spring-cloud-config-server'
+}
