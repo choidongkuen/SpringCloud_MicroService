@@ -1,18 +1,19 @@
 package com.example.filter;
 
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.util.Date;
 import java.util.Objects;
 
 
@@ -30,7 +31,9 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     /* Users-Service 에서 가지고 있는 개인키 Secret Key */
     @Value("${jwt.secret.key}")
     private String secretKey;
-
+    public AuthorizationHeaderFilter() {
+        super(Config.class);
+    }
     public static class Config {
 
     }
@@ -38,14 +41,14 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     @Override
     public GatewayFilter apply(Config config) {
         return ((exchange, chain) -> {
-            ServerHttpRequest request = (ServerHttpRequest) exchange.getRequest();
+            ServerHttpRequest request = exchange.getRequest();
 
             // 요청 헤더에 Authorization Header 포함 여부 체크
             if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
                 return onError(exchange, "No Authorization Header", HttpStatus.UNAUTHORIZED);
             }
             String authorizationHeader = Objects.requireNonNull(request.getHeaders().get(HttpHeaders.AUTHORIZATION)).get(0);
-            String jwt = authorizationHeader.replace("", JWT_PREFIX);
+            String jwt = authorizationHeader.replace(JWT_PREFIX,""); // Bearer -> ""
 
             // 파싱한 jwt 유효성 검증
             if (!isJwtValid(jwt)) {
@@ -62,28 +65,22 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
                                HttpStatus httpStatus) {
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(httpStatus);
-
         log.error(err);
         // 응답 반환
         return response.setComplete();
     }
 
     private boolean isJwtValid(String jwt) {
-
-        String subject = null;
+        String userId = null;
         try {
-            // jwt 로부터 subject 정보를 가져 오며 subject 는 "String userId"
-            Jwts.parser().setSigningKey(secretKey)
-                    .parseClaimsJws(jwt).getBody()
-                    .getSubject();
-        }catch (Exception exception) {
+            Jws<Claims> claimsJws = Jwts.parser()
+                    .setSigningKey(secretKey)
+                    .parseClaimsJws(jwt);
+
+            userId = claimsJws.getBody().getSubject();
+        } catch (Exception exception) {
             return false;
         }
-
-        if(subject == null || subject.isEmpty()) {
-            return false;
-        }
-
         return true;
     }
 }

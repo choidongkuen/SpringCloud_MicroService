@@ -61,7 +61,7 @@ spring:
           uri: lb://USERS-SERVICE
           predicates:
             - Path=/users-service/**
-#            - Method=GET
+            - Method=GET
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/users-service/(?<segment>.*), /$\{segment}
@@ -99,5 +99,5 @@ eureka:
 
 jwt:
   secret:
-    key: user_token
+    key: 236979CB6F1AD6B6A6184A31E6BE37DB3818CC36871E26235DD67DCFE4041492
   authorization-header: "Bearer"

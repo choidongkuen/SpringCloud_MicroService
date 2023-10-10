@@ -77,12 +77,11 @@ public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilt
         String token = Jwts.builder()
                 .setSubject(userDto.getUserId())
                 .setExpiration(new Date(System.currentTimeMillis()
-                        + Long.parseLong(Objects.requireNonNull(environment.getProperty("jwt.token.access-expiration"))))
-                )
-                .signWith(SignatureAlgorithm.HS512, environment.getProperty("jwt.secret.key"))
+                        + Long.parseLong(Objects.requireNonNull(environment.getProperty("jwt.token.access-expiration")))))
+                .signWith(SignatureAlgorithm.HS256, environment.getProperty("jwt.secret.key"))
                 .compact();
 
-        response.addHeader("authorization","Bear " + token); // 생성한 jwt 을 반환
+        response.addHeader("authorization","Bearer " + token); // 생성한 jwt 을 반환
         response.addHeader("userId",userDto.getUserId());
     }
 }
