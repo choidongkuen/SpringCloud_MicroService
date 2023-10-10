@@ -15,7 +15,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +26,8 @@ import java.util.Objects;
 
 /**
  * - attemptAuthentication 으로 인증 시도
+ *    - 사용자가 입력한 id,password 같은 인증 정보를 기반으로
+ *    - bean 으로 등록된 AuthenticationManager 을 통해 자동 으로 인증 시도(using UserDetailsService)
  * - successfulAuthentication 으로 인증 후 jwt 발급 using Authentication
 **/
 @Slf4j
@@ -50,6 +51,7 @@ public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilt
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
         try {
+            log.info("attemptAuthentication called");
             // email, password 는 요청 파라미터로 요청 바디을 통해 전달
             // 요청 바디를 읽기 위해 HttpServletRequest.getInputStream()
             LoginDto loginDto = new ObjectMapper().readValue(request.getInputStream(), LoginDto.class);

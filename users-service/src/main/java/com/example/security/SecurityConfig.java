@@ -40,6 +40,7 @@ public class SecurityConfig {
         return userAuthenticationFilter;
     }
 
+    /* AuthenticationManager */
     @Bean
     public AuthenticationManager getAuthenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
