@@ -18,4 +18,7 @@ dependencies {
     // spring cloud config for client
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
 
+    // spring actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
 }

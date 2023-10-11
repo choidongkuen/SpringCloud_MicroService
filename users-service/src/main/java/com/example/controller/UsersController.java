@@ -57,7 +57,7 @@ public class UsersController {
     // 설정정보를 조회하는 컨트롤러
     @GetMapping("/config")
     public String config() {
-        log.info("secret key:" + this.configProperties.getSecretKey());
-        return this.configProperties.getSecretKey();
+        log.info("secret key:" + this.configProperties.getSecret());
+        return this.configProperties.getSecret();
     }
 }

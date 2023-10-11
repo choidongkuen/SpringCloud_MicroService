@@ -9,11 +9,6 @@ spring:
       server:
         git:
           # github address
-          uri: https://github.com/choidongkuen/spring_cloud_config_repo
+          uri: https://github.com/choidongkuen/spring_cloud_config_repo.git
+#          search-paths: spring_cloud_config_repo/**
 
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka

@@ -9,7 +9,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +16,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,16 +27,15 @@ import java.util.Date;
 
 /**
  * - attemptAuthentication 으로 인증 시도
- *    - 사용자가 입력한 id,password 같은 인증 정보를 기반으로
- *    - bean 으로 등록된 AuthenticationManager 을 통해 자동 으로 인증 시도(using UserDetailsService)
+ * - 사용자가 입력한 id,password 같은 인증 정보를 기반으로
+ * - bean 으로 등록된 AuthenticationManager 을 통해 자동 으로 인증 시도(using UserDetailsService)
  * - successfulAuthentication 으로 인증 후 jwt 발급 using Authentication
-**/
+ **/
 @Slf4j
 @Component
 public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private ConfigProperties configProperties;
     private UsersService usersService;
-
 
     /* AuthenticationManager 는 SecurityConfig 에서 Bean 으로 이미 등록됨 */
     public UserAuthenticationFilter(AuthenticationManager authenticationManager,
@@ -45,7 +44,7 @@ public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilt
         super.setAuthenticationManager(authenticationManager);
         this.usersService = usersService;
         this.configProperties = configProperties;
-        log.info("secret key : " + configProperties.getSecretKey());
+        log.info("secret key : " + configProperties.getSecret());
     }
 
     /* 인증 시도, UserDetailsService 의 loadUserByUsername 메소드 호출 */
@@ -78,12 +77,11 @@ public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilt
 
         String token = Jwts.builder()
                 .setSubject(userDto.getUserId())
-                .setExpiration(new Date(System.currentTimeMillis()
-                        + configProperties.getTokenAccessExpiration()))
-                .signWith(SignatureAlgorithm.HS256, configProperties.getSecretKey())
+                .setExpiration(new Date(System.currentTimeMillis() + configProperties.getExpiration()))
+                .signWith(SignatureAlgorithm.HS256, configProperties.getSecret())
                 .compact();
 
-        response.addHeader("authorization","Bearer " + token); // 생성한 jwt 을 반환
-        response.addHeader("userId",userDto.getUserId());
+        response.addHeader("authorization", "Bearer " + token); // 생성한 jwt 을 반환
+        response.addHeader("userId", userDto.getUserId());
     }
 }

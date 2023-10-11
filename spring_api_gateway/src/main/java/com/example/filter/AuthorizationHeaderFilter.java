@@ -12,8 +12,6 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
-
-import java.util.Date;
 import java.util.Objects;
 
 
@@ -42,6 +40,11 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     public GatewayFilter apply(Config config) {
         return ((exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
+
+            /* /users/config/ -> Users-service 의 설정 정보를 조회하는 앤드포인트는 pass */
+            if(request.getURI().equals("/users/config")){
+                return chain.filter(exchange);
+            }
 
             // 요청 헤더에 Authorization Header 포함 여부 체크
             if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
