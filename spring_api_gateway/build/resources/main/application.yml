@@ -56,6 +56,26 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/users-service/(?<segment>.*), /$\{segment}
 
+        ### 유저 설정 정보
+        - id: users-service
+          uri: lb://USERS-SERVICE
+          predicates:
+            - Path=/users-service/users/config
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/users-service(?<segment>.*), /$\{segment}
+
+        ### USERS-SERVICE Actuator
+        - id: users-service
+          uri: lb://USERS-SERVICE
+          predicates:
+            - Path=/users-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/users-service(?<segment>.*), /$\{segment}
+
         ### 유저 관련 일반 기능
         - id: users-service
           uri: lb://USERS-SERVICE
@@ -65,7 +85,7 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/users-service/(?<segment>.*), /$\{segment}
             # jwt 인증 관련 필터
-#            - AuthorizationHeaderFilter
+            - AuthorizationHeaderFilter
 ####################################################################################
         - id: catalogs-service
           uri: lb://CATALOGS-SERVICE
@@ -93,8 +113,6 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
-
-
 
 jwt:
   secret:

@@ -1,5 +1,5 @@
 server:
-  port: 9999
+  port: 0
 
 spring:
   application:
@@ -46,7 +46,13 @@ logging:
   level:
     com.example.service.userservice: DEBUG
 
-
+# Spring Actuator 의 info 와 health 을 제외하고는 모두 비활성화 -> 보안을 위해
+# 해당 설정을 통해 활성화 가능
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace
 #jwt:
 #  token:
 #    access-expiration: 360000
