@@ -21,4 +21,7 @@ dependencies {
     // spring actuator
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
+    // spring rabbitmq
+    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
+
 }

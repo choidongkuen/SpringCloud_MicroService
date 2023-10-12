@@ -9,8 +9,6 @@ spring:
     import: optional:configserver:http://localhost:8888
     name: spring-api-gateway # Spring Cloud Config Server 에서 가져올 외부 설정 파일의 이름
 
-
-
   cloud:
     gateway:
       routes:
@@ -32,7 +30,6 @@ spring:
                 baseMessage: Hi, There
                 preLogger: true
                 postLogger: true
-
 ####################################################################################
 
 # 클리이언트의 요청을 받아서 Predicates 을 보고 해당 URL 을 다른 URL 로 요청보낼 수 있다.(원하는 형태로 변경 가능)

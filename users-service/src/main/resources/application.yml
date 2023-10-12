@@ -54,9 +54,16 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, httptrace
-#jwt:
-#  token:
-#    access-expiration: 360000
-#  secret:
-#    key: 236979CB6F1AD6B6A6184A31E6BE37DB3818CC36871E26235DD67DCFE4041492
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    db:
+      enabled: false
+  trace:
+    http:
+      include: request_headers,remote_address,response_headers
+
+
+# management.trace.http.include=request-headers,response-headers,cookies,errors
