@@ -3,6 +3,9 @@
 ![image](https://github.com/choidongkuen/SpringCloud_MicroService/assets/96874318/ad46460f-d170-4945-8477-60925e5048ff)
 
 
+#### 1. 학습 목표 : Spring framework의 Spring Cloud 제품군을 이용하여 마이크로서비스 애플리케이션을 개발해 보는 과정입니다. Cloud Native Application으로써의 Spring Cloud를 어떻게 사용하는지, 구성을 어떻게 하는지에 대해 배울 수 있는 강의입니다.
+
+#### 2. 사용 기술 : Spring Boot 2.7.15, Neflix Zuul, Neflix Ribbon, Neflix Eureka, Spring Cloud API Gateway, Spring Data JPA, Spring Cloud Config, Spring Cloud Bus, H2 DB, RabbitMQ
 <hr>
 
 ### 1. Users Service
@@ -15,6 +18,8 @@
 | 사용자 정보, 주문 내역 조회 | /users-service/users/{userId}    | /users/{userId} | **GET** |
 | 작동 상태 확인 | /users-service/users/health_check | /users/health_check | **GET** |
 | 환영 메세지 | /users-service/users/welcome | /users/welcome | **GET** |
+| 회원 로그인 | /users-service/users/login | /users/login | **POST** |
+
 
 <details>
 <summary>Users Service API 명세서</summary>
@@ -69,7 +74,7 @@ GET /users-service/users
 
 <hr>
 
-[3. 사용자 정보 조회]
+[3. 특정 사용자 정보 조회]
 <br>
 
 요청
@@ -86,7 +91,21 @@ GET /users-service/users/{userId}
   "userId" : "sdewsdcx"
 }
 ```
+<hr>
 
+[4. 애플리케이션 상태 정보 확인]
+<br>
+
+요청
+```json
+GET /users-service/users/health-check
+```
+
+응답
+```json
+// 200 OK
+It's Working in User Service on PORT 57702
+```
 
 </div>
 </details>
