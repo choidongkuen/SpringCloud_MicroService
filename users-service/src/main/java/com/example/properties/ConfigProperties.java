@@ -10,6 +10,9 @@ import org.springframework.boot.context.properties.ConstructorBinding;
 @ConstructorBinding
 @ConfigurationProperties(prefix = "jwt")
 public class ConfigProperties {
+    private String application;
     private Long expiration;
     private String secret;
+    private String type;
+    private String profile;
 }

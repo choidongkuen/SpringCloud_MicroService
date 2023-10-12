@@ -1,6 +1,8 @@
 package com.example.filter;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -12,6 +14,7 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+
 import java.util.Objects;
 
 
@@ -23,17 +26,18 @@ import java.util.Objects;
 @Slf4j
 public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config> {
 
-    @Value("${jwt.authorization-header}")
-    private String JWT_PREFIX;
 
-    /* Users-Service 에서 가지고 있는 개인키 Secret Key */
-    @Value("${jwt.secret.key}")
-    private String secretKey;
+    @Value("${jwt.secret}")
+    private String secret;
+
+    @Value("${jwt.type}")
+    private String bearer;
+
     public AuthorizationHeaderFilter() {
         super(Config.class);
     }
-    public static class Config {
 
+    public static class Config {
     }
 
     @Override
@@ -42,7 +46,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             ServerHttpRequest request = exchange.getRequest();
 
             /* /users/config/ -> Users-service 의 설정 정보를 조회하는 앤드포인트는 pass */
-            if(request.getURI().equals("/users/config")){
+            if (request.getURI().equals("/users/config")) {
                 return chain.filter(exchange);
             }
 
@@ -51,7 +55,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
                 return onError(exchange, "No Authorization Header", HttpStatus.UNAUTHORIZED);
             }
             String authorizationHeader = Objects.requireNonNull(request.getHeaders().get(HttpHeaders.AUTHORIZATION)).get(0);
-            String jwt = authorizationHeader.replace(JWT_PREFIX,""); // Bearer -> ""
+            String jwt = authorizationHeader.replace(Objects.requireNonNull(bearer), ""); // Bearer -> ""
 
             // 파싱한 jwt 유효성 검증
             if (!isJwtValid(jwt)) {
@@ -77,7 +81,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         String userId = null;
         try {
             Jws<Claims> claimsJws = Jwts.parser()
-                    .setSigningKey(secretKey)
+                    .setSigningKey(secret)
                     .parseClaimsJws(jwt);
 
             userId = claimsJws.getBody().getSubject();

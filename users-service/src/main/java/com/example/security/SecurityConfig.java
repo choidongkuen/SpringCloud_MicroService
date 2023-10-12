@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,9 +28,9 @@ public class SecurityConfig {
     /**
      * - Users-Service application 에 Spring actuator 적용하려고 한다.
      * - Spring Security 에 /actuator/** 대한 모든 요청을 허용
-     *      - jwt 검증이 필요한 요청은 Spring Cloud Gateway's AuthorizationHeaderFilter 을 거치며,
-     *      - jwt 생성 using 아이디, 비밀번호는 UserAuthenticationFilter 에서 발생 한다.
-    **/
+     * - jwt 검증이 필요한 요청은 Spring Cloud Gateway's AuthorizationHeaderFilter 을 거치며,
+     * - jwt 생성 using 아이디, 비밀번호는 UserAuthenticationFilter 에서 발생 한다.
+     **/
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -41,8 +40,6 @@ public class SecurityConfig {
                 .authorizeRequests().antMatchers("/actuator/**").permitAll()// Spring Actuator 모든 요청 인증 x
                 .and()
                 .addFilter(getUserAuthenticationFilter());
-
-
         return http.build();
     }
 

@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.dto.CreateUsersRequestDto;
+import com.example.dto.GetConfigInfo;
 import com.example.dto.GetUsersResponseDto;
 import com.example.properties.ConfigProperties;
 import com.example.service.UsersService;
@@ -12,7 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -39,12 +43,16 @@ public class UsersController {
         request.setPassword(this.bcryptPasswordEncoder.encode(request.getPassword()));
         return ResponseEntity.status(HttpStatus.CREATED).body(this.usersService.createUser(request));
     }
+
     // 모든 유저 조회
     // GET : http://localhost:8080/users
     @GetMapping
-    public ResponseEntity<List<GetUsersResponseDto>> getAllUsers() {
+    public ResponseEntity<List<GetUsersResponseDto>> getAllUsers(
+            HttpServletRequest request
+    ) {
         return ResponseEntity.status(HttpStatus.OK).body(this.usersService.getAllUsers());
     }
+
     // id 유저 조회
     // GET : http://localhost:8080/users/{userID}
     @GetMapping("/{userId}")
@@ -56,8 +64,17 @@ public class UsersController {
 
     // 설정정보를 조회하는 컨트롤러
     @GetMapping("/config")
-    public String config() {
+    public ResponseEntity<?> config() throws IOException {
+        log.info("profile activated : " + Arrays.toString(environment.getActiveProfiles()));
         log.info("secret key:" + this.configProperties.getSecret());
-        return this.configProperties.getSecret();
+        log.info("profile : " + this.configProperties.getProfile());
+        GetConfigInfo info = GetConfigInfo.builder()
+                .application(configProperties.getApplication())
+                .secretKey(this.configProperties.getSecret())
+                .expiration(this.configProperties.getExpiration())
+                .type(this.configProperties.getType())
+                .profile(this.configProperties.getProfile())
+                .build();
+        return ResponseEntity.ok().body(info);
     }
 }

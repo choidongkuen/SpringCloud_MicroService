@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
+ * << UserAuthenticationFilter 는 login 시에만 동작 >>
  * - attemptAuthentication 으로 인증 시도
  * - 사용자가 입력한 id,password 같은 인증 정보를 기반으로
  * - bean 으로 등록된 AuthenticationManager 을 통해 자동 으로 인증 시도(using UserDetailsService)
@@ -83,5 +83,8 @@ public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilt
 
         response.addHeader("authorization", "Bearer " + token); // 생성한 jwt 을 반환
         response.addHeader("userId", userDto.getUserId());
+
+        response.getWriter().write("Access Token 발급이 완료되었습니다.");
+        return;
     }
 }

@@ -4,13 +4,17 @@ server:
 spring:
   application:
     name: users-service
+
+  profiles:
+    active: prod
   ## Spring Cloud Server 주소
   ## spring.config.import
   config:
-    import: optional:configserver:http://localhost:8888
 
-  profiles:
-    active: default
+    import: optional:configserver:http://localhost:8888
+    name: users-service
+
+
 
   datasource:
     driver-class-name: org.h2.Driver
