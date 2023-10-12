@@ -10,26 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 public class ApiGatewayController {
+    private final GetConfigInfo getConfigInfo;
 
-    @Value("${jwt.secret}")
-    private String secret;
-
-    @Value("${jwt.expiration}")
-    private Long expiration;
-
-    @Value("${jwt.type}")
-    private String type;
-
-    @Value("${jwt.profile}")
-    private String profile;
-
-    @GetMapping("/api/gateway/test")
-    public String test() {
-        log.info("secret : {}", secret);
-        log.info("expiration : {}", expiration);
-        log.info("type : {}", type);
-        log.info("profile : {}", profile);
-
-        return secret + profile;
+    @GetMapping("/api/config")
+    public GetConfigInfo test() {
+        return this.getConfigInfo;
     }
 }

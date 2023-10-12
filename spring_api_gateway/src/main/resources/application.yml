@@ -7,7 +7,7 @@ spring:
 
   config:
     import: optional:configserver:http://localhost:8888
-    name: spring-api-gateway # Spring Cloud Config Server 에서 가져올 외부 설정 파일의 이름
+    name: config-service # Spring Cloud Config Server 에서 가져올 외부 설정 파일의 이름
 
   cloud:
     gateway:
@@ -121,3 +121,9 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

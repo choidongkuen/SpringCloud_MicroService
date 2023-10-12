@@ -10,7 +10,7 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-config-server'
 
     // spring actuator
-    implementation 'org.springframework.boot:spring-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     // spring rabbitmq
     implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'

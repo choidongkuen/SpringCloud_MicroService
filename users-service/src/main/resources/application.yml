@@ -4,17 +4,20 @@ server:
 spring:
   application:
     name: users-service
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
-  profiles:
-    active: prod
+#  profiles:
+#    active: prod
+
   ## Spring Cloud Server 주소
   ## spring.config.import
   config:
-
     import: optional:configserver:http://localhost:8888
-    name: users-service
-
-
+    name: config-service
 
   datasource:
     driver-class-name: org.h2.Driver
