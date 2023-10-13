@@ -17,13 +17,15 @@ spring:
   ## spring.config.import
   config:
     import: optional:configserver:http://localhost:8888
-    name: config-service
+    name: users-service
 
-  datasource:
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: 1111
-    url: jdbc:h2:tcp://localhost/~/${DATABASE_NAME:ecommerce}
+  ## Data Source
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password: 1111
+#    url: jdbc:h2:tcp://localhost/~/${DATABASE_NAME:ecommerce}
+
   h2:
     console:
       enabled: true
@@ -37,7 +39,7 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
-
+  ## Eureka
 eureka:
   client:
     register-with-eureka: true

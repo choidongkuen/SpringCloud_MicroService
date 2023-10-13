@@ -7,7 +7,8 @@ spring:
 
   config:
     import: optional:configserver:http://localhost:8888
-    name: config-service # Spring Cloud Config Server 에서 가져올 외부 설정 파일의 이름
+    ## config-service application 이름의 yml
+    name: config-service
 
   cloud:
     gateway:
