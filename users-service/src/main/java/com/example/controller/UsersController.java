@@ -10,11 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.ws.rs.core.SecurityContext;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -50,6 +53,7 @@ public class UsersController {
     public ResponseEntity<List<GetUsersResponseDto>> getAllUsers(
             HttpServletRequest request
     ) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return ResponseEntity.status(HttpStatus.OK).body(this.usersService.getAllUsers());
     }
 
@@ -59,7 +63,7 @@ public class UsersController {
     public ResponseEntity<GetUsersResponseDto> getUser(
             @PathVariable String userId
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.usersService.getUser(userId));
+        return ResponseEntity.status(HttpStatus.OK).body(this.usersService.getUserByUserId(userId));
     }
 
     // 설정정보를 조회하는 컨트롤러

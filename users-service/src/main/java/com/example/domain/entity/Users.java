@@ -1,6 +1,7 @@
 package com.example.domain.entity;
 
 import com.example.constant.RoleType;
+import com.example.dto.GetOrdersResponseDto;
 import com.example.dto.GetUsersResponseDto;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Slf4j
 @Getter
@@ -38,15 +40,14 @@ public class Users implements UserDetails {
     @Enumerated(EnumType.STRING)
     private RoleType role;
 
-    public GetUsersResponseDto toGetUsersResponseEntity() {
+    public GetUsersResponseDto toGetUsersResponseEntity(List<GetOrdersResponseDto> userOrders) {
         return GetUsersResponseDto.builder()
                 .name(name)
                 .email(email)
                 .userId(userId)
+                .orders(userOrders)
                 .build();
     }
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

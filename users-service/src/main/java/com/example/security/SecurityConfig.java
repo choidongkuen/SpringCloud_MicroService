@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final UsersService usersService;
@@ -37,7 +37,8 @@ public class SecurityConfig {
                 .csrf().disable()
                 .headers().frameOptions().disable()
                 .and()
-                .authorizeRequests().antMatchers("/actuator/**").permitAll()// Spring Actuator 모든 요청 인증 x
+                .authorizeRequests().antMatchers("/actuator/**",
+                        "/users/login").permitAll()// Spring Actuator 모든 요청 인증 x
                 .and()
                 .addFilter(getUserAuthenticationFilter());
         return http.build();

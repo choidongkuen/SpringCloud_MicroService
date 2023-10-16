@@ -30,7 +30,7 @@ public class OrdersService {
     /* userId 에 해당하는 모든 주문 정보 가져오기 */
     @Transactional(readOnly = true)
     public List<GetOrdersResponseDto> getOrdersByUserId(String userId) {
-        return this.ordersRepository.findByUserId(userId).stream()
+        return this.ordersRepository.findAllByUserId(userId).stream()
                 .map(Orders::toGetOrdersResponseDto)
                 .collect(Collectors.toList());
     }
@@ -38,8 +38,19 @@ public class OrdersService {
     /* orderId 에 해당하는 주문 정보 가져오기 */
     @Transactional(readOnly = true)
     public GetOrdersResponseDto getOrdersByOrderId(String orderId) {
-        return this.ordersRepository.findByOrderId(orderId)
-                .orElseThrow(() -> new OrderNotFoundException("일치하는 주문이 존재하지 않습니다."))
+        return this.getOrders(orderId)
                 .toGetOrdersResponseDto();
+    }
+
+    /* orderId 에 해당하는 주문 정보 삭제하기 */
+    @Transactional
+    public void deleteOrder(String orderId) {
+        Orders orders = this.getOrders(orderId);
+        this.ordersRepository.delete(orders);
+    }
+
+    private Orders getOrders(String orderId) {
+        return this.ordersRepository.findByOrderId(orderId)
+                .orElseThrow(() -> new OrderNotFoundException("일치하는 주문이 존재하지 않습니다."));
     }
 }

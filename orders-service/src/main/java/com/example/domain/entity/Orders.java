@@ -23,7 +23,7 @@ public class Orders extends BaseEntity {
     @Column(name = "orders_id", nullable = false, unique = true)
     private String orderId;
 
-    @Column(name = "pdt_id", nullable = false, unique = true)
+    @Column(name = "pdt_id", nullable = false)
     private String productId;
 
     @Column(name = "pdt_name", nullable = false)

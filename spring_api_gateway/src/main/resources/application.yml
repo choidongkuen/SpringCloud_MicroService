@@ -59,7 +59,7 @@ spring:
         - id: users-service
           uri: lb://USERS-SERVICE
           predicates:
-            - Path=/users-service/users/login
+            - Path=/users-service/login
             - Method=POST
           filters:
             - RemoveRequestHeader=Cookie
@@ -95,16 +95,18 @@ spring:
             - RewritePath=/users-service/(?<segment>.*), /$\{segment}
             # jwt 인증 관련 필터
             - AuthorizationHeaderFilter
+            -
 ####################################################################################
         - id: catalogs-service
           uri: lb://CATALOGS-SERVICE
           predicates:
             - Path=/catalogs-service/**
-
+####################################################################################
         - id: orders-service
           uri: lb://ORDERS-SERVICE
           predicates:
             - Path=/orders-service/**
+####################################################################################
 
       # global filter 부분
       default-filters:
