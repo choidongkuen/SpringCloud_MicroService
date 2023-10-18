@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 @Builder
 @AllArgsConstructor
 public class CreateOrdersRequestDto {
-
     @NotBlank
     private String productId;
 

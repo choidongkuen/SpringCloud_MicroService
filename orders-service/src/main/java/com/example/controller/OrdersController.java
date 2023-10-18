@@ -15,7 +15,6 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/orders-service")
 @RestController
 public class OrdersController {
     private final OrdersService ordersService;

@@ -23,7 +23,7 @@ public class Orders extends BaseEntity {
     @Column(name = "orders_id", nullable = false, unique = true)
     private String orderId;
 
-    @Column(name = "pdt_id", nullable = false)
+    @Column(name = "pdt_id")
     private String productId;
 
     @Column(name = "pdt_name", nullable = false)
@@ -32,13 +32,13 @@ public class Orders extends BaseEntity {
     @Column(name = "stock", nullable = false)
     private int stock;
 
-    @Column(name = "unit_price",nullable = false)
+    @Column(name = "unit_price", nullable = false)
     private int unitPrice;
 
-    @Column(name = "total_price",nullable = false)
+    @Column(name = "total_price", nullable = false)
     private int totalPrice;
 
-    @Column(name = "usr_id",nullable = false)
+    @Column(name = "usr_id", nullable = false)
     private String userId;
 
     public GetOrdersResponseDto toGetOrdersResponseDto() {

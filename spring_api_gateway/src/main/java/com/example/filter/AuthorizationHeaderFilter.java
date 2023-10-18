@@ -18,7 +18,7 @@ import java.util.Objects;
 
 
 /**
- * - 사용자 요청에 대한 인증 처리하는 필터
+ * - 사용자 요청에 대한 JWT 검증,인증 처리하는 필터
  * - 회원가입, 로그인을 제외한 모든 요청에 대해 jwt 검증 하는 필터
  **/
 @Component
@@ -43,11 +43,6 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     public GatewayFilter apply(Config config) {
         return ((exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
-
-            /* /users/config/ -> Users-service 의 설정 정보를 조회하는 앤드포인트는 pass */
-            if (request.getURI().equals("/users/config")) {
-                return chain.filter(exchange);
-            }
 
             // 요청 헤더에 Authorization Header 포함 여부 체크
             if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {

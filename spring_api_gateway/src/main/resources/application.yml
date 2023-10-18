@@ -95,17 +95,21 @@ spring:
             - RewritePath=/users-service/(?<segment>.*), /$\{segment}
             # jwt 인증 관련 필터
             - AuthorizationHeaderFilter
-            -
+
 ####################################################################################
         - id: catalogs-service
           uri: lb://CATALOGS-SERVICE
           predicates:
             - Path=/catalogs-service/**
+          filters:
+            - RewritePath=/orders-service/(?<segment>.*), /$\{segment}
 ####################################################################################
         - id: orders-service
           uri: lb://ORDERS-SERVICE
           predicates:
             - Path=/orders-service/**
+          filters:
+            - RewritePath=/orders-service/(?<segment>.*), /$\{segment}
 ####################################################################################
 
       # global filter 부분

@@ -65,7 +65,6 @@ public class UsersService implements UserDetailsService {
 
     @Transactional
     public GetUsersResponseDto getUserDetailsByEmail(String email) {
-
         // %s => userId, userId 가 주문한 모든 orders 내역 조회
         return this.usersRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found"))
@@ -84,16 +83,17 @@ public class UsersService implements UserDetailsService {
     public GetUsersResponseDto getUserByUserId(String userId) {
         // %s => userId, userId 가 주문한 모든 orders 내역 조회
         // Rest Template 을 이용한 방법
-        ResponseEntity<List<GetOrdersResponseDto>> getOrdersResponseDto = this.getListResponseEntity(userId);
+        List<GetOrdersResponseDto> body = this.getListResponseEntity(userId).getBody();
 
         return this.usersRepository.findByUserId(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found"))
-                .toGetUsersResponseEntity(getOrdersResponseDto.getBody());
+                .toGetUsersResponseEntity(body);
     }
 
     private ResponseEntity<List<GetOrdersResponseDto>> getListResponseEntity(String userId) {
         // %s => userId, userId 가 주문한 모든 orders 내역 조회
-        return this.restTemplate.exchange(String.format(ordersServiceUrl,userId), HttpMethod.GET, null, new ParameterizedTypeReference<List<GetOrdersResponseDto>>() {
-        });
+        // url , HttpMethod, 요청 본문, 응답 엔티티
+        return this.restTemplate.exchange(
+                String.format(ordersServiceUrl,userId), HttpMethod.GET, null, new ParameterizedTypeReference<List<GetOrdersResponseDto>>() {});
     }
 }

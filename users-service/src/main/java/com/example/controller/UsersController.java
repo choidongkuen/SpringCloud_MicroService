@@ -51,7 +51,6 @@ public class UsersController {
     // GET : http://localhost:8080/users
     @GetMapping
     public ResponseEntity<List<GetUsersResponseDto>> getAllUsers(
-            HttpServletRequest request
     ) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return ResponseEntity.status(HttpStatus.OK).body(this.usersService.getAllUsers());
@@ -63,6 +62,8 @@ public class UsersController {
     public ResponseEntity<GetUsersResponseDto> getUser(
             @PathVariable String userId
     ) {
+        String a = "62682241-b8e9-4d22-9d2b-7dd663d38ac1";
+        System.out.println((a.equals("62682241-b8e9-4d22-9d2b-7dd663d38ac1")));
         return ResponseEntity.status(HttpStatus.OK).body(this.usersService.getUserByUserId(userId));
     }
 
