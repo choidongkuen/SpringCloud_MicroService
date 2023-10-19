@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.dto.CreateUsersRequestDto;
 import com.example.dto.GetConfigInfo;
 import com.example.dto.GetUsersResponseDto;
+import com.example.properties.ConfigJwtProperties;
 import com.example.properties.ConfigProperties;
 import com.example.service.UsersService;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.ws.rs.core.SecurityContext;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +28,7 @@ import java.util.List;
 public class UsersController {
     private final UsersService usersService;
     private final Environment environment;
+    private final ConfigJwtProperties configJwtProperties;
     private final ConfigProperties configProperties;
     private final BCryptPasswordEncoder bcryptPasswordEncoder;
 
@@ -71,14 +71,14 @@ public class UsersController {
     @GetMapping("/config")
     public ResponseEntity<?> config() throws IOException {
         log.info("profile activated : " + Arrays.toString(environment.getActiveProfiles()));
-        log.info("secret key:" + this.configProperties.getSecret());
-        log.info("profile : " + this.configProperties.getProfile());
+        log.info("secret key:" + this.configJwtProperties.getSecret());
+        log.info("profile : " + this.configJwtProperties.getProfile());
         GetConfigInfo info = GetConfigInfo.builder()
-                .application(configProperties.getApplication())
-                .secretKey(this.configProperties.getSecret())
-                .expiration(this.configProperties.getExpiration())
-                .type(this.configProperties.getType())
-                .profile(this.configProperties.getProfile())
+                .application(configJwtProperties.getApplication())
+                .secretKey(this.configJwtProperties.getSecret())
+                .expiration(this.configJwtProperties.getExpiration())
+                .type(this.configJwtProperties.getType())
+                .profile(this.configJwtProperties.getProfile())
                 .build();
         return ResponseEntity.ok().body(info);
     }

@@ -10,8 +10,6 @@ spring:
     username: guest
     password: guest
 
-#  profiles:
-#    active: prod
 
   ## Spring Cloud Server 주소
   ## spring.config.import

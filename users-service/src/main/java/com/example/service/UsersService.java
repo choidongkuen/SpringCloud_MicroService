@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.client.OrderServiceClient;
 import com.example.domain.entity.Users;
 import com.example.domain.repository.UsersRepository;
 import com.example.dto.CreateUsersRequestDto;
@@ -7,7 +8,6 @@ import com.example.dto.GetOrdersResponseDto;
 import com.example.dto.GetUsersResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
@@ -34,6 +34,7 @@ public class UsersService implements UserDetailsService {
     private final UsersRepository usersRepository;
     private final RestTemplate restTemplate;
     private final Environment environment;
+    private final OrderServiceClient orderServiceClient;
 
     @Value("${orders-service.url}")
     private  String ordersServiceUrl;
@@ -83,17 +84,26 @@ public class UsersService implements UserDetailsService {
     public GetUsersResponseDto getUserByUserId(String userId) {
         // %s => userId, userId 가 주문한 모든 orders 내역 조회
         // Rest Template 을 이용한 방법
-        List<GetOrdersResponseDto> body = this.getListResponseEntity(userId).getBody();
+//        List<GetOrdersResponseDto> body = this.getListResponseEntityByRestTemplate(userId).getBody();
+
+        List<GetOrdersResponseDto> resultByFeignClient = this.getListResponseEntityByFeignClient(userId);
 
         return this.usersRepository.findByUserId(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found"))
-                .toGetUsersResponseEntity(body);
+                .toGetUsersResponseEntity(resultByFeignClient);
     }
 
-    private ResponseEntity<List<GetOrdersResponseDto>> getListResponseEntity(String userId) {
+
+    // RestTemplate
+    private ResponseEntity<List<GetOrdersResponseDto>> getListResponseEntityByRestTemplate(String userId) {
         // %s => userId, userId 가 주문한 모든 orders 내역 조회
         // url , HttpMethod, 요청 본문, 응답 엔티티
         return this.restTemplate.exchange(
                 String.format(ordersServiceUrl,userId), HttpMethod.GET, null, new ParameterizedTypeReference<List<GetOrdersResponseDto>>() {});
+    }
+
+    // FeignClient
+    private List<GetOrdersResponseDto> getListResponseEntityByFeignClient(String userId) {
+        return this.orderServiceClient.getOrdersByUserId(userId);
     }
 }

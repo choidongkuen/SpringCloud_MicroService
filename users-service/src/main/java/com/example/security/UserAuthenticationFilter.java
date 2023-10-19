@@ -2,12 +2,11 @@ package com.example.security;
 
 import com.example.dto.GetUsersResponseDto;
 import com.example.dto.LoginDto;
-import com.example.properties.ConfigProperties;
+import com.example.properties.ConfigJwtProperties;
 import com.example.service.UsersService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -37,17 +36,17 @@ import java.util.Date;
 @Slf4j
 @Component
 public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-    private ConfigProperties configProperties;
+    private ConfigJwtProperties configJwtProperties;
     private UsersService usersService;
 
     /* AuthenticationManager 는 SecurityConfig 에서 Bean 으로 이미 등록됨 */
     public UserAuthenticationFilter(AuthenticationManager authenticationManager,
-                                    UsersService usersService, ConfigProperties configProperties
+                                    UsersService usersService, ConfigJwtProperties configJwtProperties
     ) {
         super.setAuthenticationManager(authenticationManager);
         this.usersService = usersService;
-        this.configProperties = configProperties;
-        log.info("secret key : " + configProperties.getSecret());
+        this.configJwtProperties = configJwtProperties;
+//        log.info("secret key : " + configProperties.getSecret());
     }
 
     /* 인증 시도, UserDetailsService 의 loadUserByUsername 메소드 호출 */
@@ -87,8 +86,8 @@ public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilt
 
         String token = Jwts.builder()
                 .setSubject(userDto.getUserId())
-                .setExpiration(new Date(System.currentTimeMillis() + configProperties.getExpiration()))
-                .signWith(SignatureAlgorithm.HS256, configProperties.getSecret())
+                .setExpiration(new Date(System.currentTimeMillis() + configJwtProperties.getExpiration()))
+                .signWith(SignatureAlgorithm.HS256, configJwtProperties.getSecret())
                 .compact();
 
         String jsonResponse = "{\"userId\": \"" + userDto.getUserId() + "\"}";

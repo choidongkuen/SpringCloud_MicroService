@@ -1,6 +1,6 @@
 package com.example.security;
 
-import com.example.properties.ConfigProperties;
+import com.example.properties.ConfigJwtProperties;
 import com.example.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final UsersService usersService;
-    private final ConfigProperties configProperties;
+    private final ConfigJwtProperties configJwtProperties;
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -47,7 +47,7 @@ public class SecurityConfig {
     /* UserAuthenticationFilter */
     private UserAuthenticationFilter getUserAuthenticationFilter() throws Exception {
         UserAuthenticationFilter userAuthenticationFilter
-                = new UserAuthenticationFilter(getAuthenticationManager(new AuthenticationConfiguration()), usersService, configProperties);
+                = new UserAuthenticationFilter(getAuthenticationManager(new AuthenticationConfiguration()), usersService, configJwtProperties);
         userAuthenticationFilter.setAuthenticationManager(getAuthenticationManager(new AuthenticationConfiguration()));
         return userAuthenticationFilter;
     }

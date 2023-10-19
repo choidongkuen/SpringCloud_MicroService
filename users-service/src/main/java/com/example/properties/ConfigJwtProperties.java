@@ -1,16 +1,18 @@
 package com.example.properties;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
-@ConstructorBinding
-@AllArgsConstructor
 @Getter
-@ConfigurationProperties(prefix = "application")
-public class ConfigProperties {
-    private String name;
-    private String file;
+@Setter
+@ConstructorBinding
+@ConfigurationProperties(prefix = "jwt")
+public class ConfigJwtProperties {
+    private String application;
+    private Long expiration;
+    private String secret;
+    private String type;
     private String profile;
 }

@@ -17,6 +17,7 @@ spring:
         git:
           # github address
           uri: https://github.com/choidongkuen/spring_cloud_config_repo.git
+          # data encryption
 
   ## config-service actuator
 management:
@@ -24,4 +25,3 @@ management:
     web:
       exposure:
         include: health, busrefresh
-
