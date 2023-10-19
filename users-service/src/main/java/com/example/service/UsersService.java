@@ -6,6 +6,7 @@ import com.example.domain.repository.UsersRepository;
 import com.example.dto.CreateUsersRequestDto;
 import com.example.dto.GetOrdersResponseDto;
 import com.example.dto.GetUsersResponseDto;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -86,11 +87,15 @@ public class UsersService implements UserDetailsService {
         // Rest Template 을 이용한 방법
 //        List<GetOrdersResponseDto> body = this.getListResponseEntityByRestTemplate(userId).getBody();
 
-        List<GetOrdersResponseDto> resultByFeignClient = this.getListResponseEntityByFeignClient(userId);
-
+        List<GetOrdersResponseDto> result = null;
+        try {
+            result = this.getListResponseEntityByFeignClient(userId);
+        }catch (FeignException exception) {
+            log.error(exception.getMessage());
+        }
         return this.usersRepository.findByUserId(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found"))
-                .toGetUsersResponseEntity(resultByFeignClient);
+                .toGetUsersResponseEntity(result);
     }
 
 

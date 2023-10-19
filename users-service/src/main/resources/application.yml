@@ -47,9 +47,9 @@ eureka:
   instance:
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.instance_id:${random.value}}
 
-logging:
-  level:
-    com.example.service.userservice: DEBUG
+#logging:
+#  level:
+#    com.example.service.userservice: DEBUG
 
 # Spring Actuator 의 info 와 health 을 제외하고는 모두 비활성화 -> 보안을 위해
 # 해당 설정을 통해 활성화 가능
@@ -69,4 +69,6 @@ management:
       include: request_headers,remote_address,response_headers
 
 
-# management.trace.http.include=request-headers,response-headers,cookies,errors
+logging:
+  level:
+    com.example.client: DEBUG

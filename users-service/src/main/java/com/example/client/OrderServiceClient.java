@@ -14,7 +14,7 @@ import java.util.List;
 public interface OrderServiceClient {
 
     // 직접 해당 http 요청 호출
-    @GetMapping("/users/{userId}/orders")
+    @GetMapping("/users/{userId}/orderss")
     List<GetOrdersResponseDto> getOrdersByUserId(@PathVariable String userId);
 }
 

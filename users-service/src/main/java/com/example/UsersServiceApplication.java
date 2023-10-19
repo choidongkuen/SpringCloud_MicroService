@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.exception.FeignErrorDecoder;
+import feign.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
@@ -29,5 +31,17 @@ public class UsersServiceApplication {
     @Bean
     public RestTemplate getRestTemplate() {
         return new RestTemplate();
+    }
+
+    /* feign client logger */
+    @Bean
+    public Logger.Level feignLoggerLevel() {
+        return Logger.Level.FULL;
+    }
+
+    /* Feign Client Error Decoder */
+    @Bean
+    public FeignErrorDecoder getFeignErrorDecode() {
+        return new FeignErrorDecoder();
     }
 }

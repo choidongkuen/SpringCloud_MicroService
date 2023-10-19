@@ -1,3 +1,5 @@
-## 대칭키
 encrypt:
-  key: abcdefghujwkmnopopqrstuvwxyz0232
+  key-store:
+    location: file://${user.home}/Desktop/Github/ecommerceDiscoveryService/keystore/ecommerceEncryptionKey.jks
+    password: test1234
+    alias: ecommerceEncryptionKey

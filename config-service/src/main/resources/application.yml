@@ -25,3 +25,10 @@ management:
     web:
       exposure:
         include: health, busrefresh
+
+
+encrypt:
+  key-store:
+    location: file://${user.home}/Desktop/Github/ecommerceDiscoveryService/keystore/ecommerceEncryptionKey.jks
+    password: test1234
+    alias: ecommerceEncryptionKey
