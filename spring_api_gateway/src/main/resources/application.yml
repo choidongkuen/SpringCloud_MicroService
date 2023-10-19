@@ -104,13 +104,19 @@ spring:
           filters:
             - RewritePath=/orders-service/(?<segment>.*), /$\{segment}
 ####################################################################################
-        - id: orders-service
-          uri: lb://ORDERS-SERVICE
+        - id: orders-service-01
+          uri: lb://ORDERS-SERVICE-01
           predicates:
-            - Path=/orders-service/**
+            - Path=/orders-service-01/**
           filters:
-            - RewritePath=/orders-service/(?<segment>.*), /$\{segment}
+            - RewritePath=/orders-service-01/(?<segment>.*), /$\{segment}
 ####################################################################################
+        - id: orders-service-02
+          uri: lb://ORDERS-SERVICE-02
+          predicates:
+            - Path-/orders-service-02/**
+          filters:
+            - RewritePath=/orders-service-02/(?<segment>.*), /$\{segment}
 
       # global filter 부분
       default-filters:

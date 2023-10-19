@@ -3,11 +3,11 @@ server:
 
 spring:
   application:
-    name: orders-service
+    name: orders-service-01
   ## config server
   config:
     import: optional:configserver:http://localhost:8888
-    name: orders-service
+    name: orders-service-01
 
   h2:
     console:
@@ -15,6 +15,7 @@ spring:
       path: /h2-console
       settings:
         web-allow-others: true
+
   jpa:
     hibernate:
       ddl-auto: update
