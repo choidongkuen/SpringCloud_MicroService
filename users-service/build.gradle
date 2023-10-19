@@ -24,4 +24,7 @@ dependencies {
     // spring rabbitmq
     implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
 
+    // spring open feign
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
 }
