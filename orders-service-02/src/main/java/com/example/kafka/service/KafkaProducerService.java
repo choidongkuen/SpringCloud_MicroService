@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaProducerService {
 
-    private KafkaTemplate<String,String> kafkaTemplate;
+    private final KafkaTemplate<String,String> kafkaTemplate;
 
     public void sendMessageToKafka(String topic, CreateOrdersRequestDto request) {
         ObjectMapper mapper = new ObjectMapper();

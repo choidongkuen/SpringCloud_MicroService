@@ -21,7 +21,7 @@ public class KafkaConsumerService {
     private final CatalogsRepository catalogsRepository;
 
     @Transactional
-    @KafkaListener(topics = "orders-catalogs.topic")
+    @KafkaListener(topics = "orders-catalogs-topic")
     public void updateQty(String kafkaMessage) {
         log.info("KafkaMessage = {}", kafkaMessage);
 
@@ -35,11 +35,24 @@ public class KafkaConsumerService {
             exception.printStackTrace();
         }
 
-        String productId = (String) map.get("productId");
-        Integer qty = (Integer) map.get("qty");
+        // {"/"productId/" : "CATALOGS-01", "/productName/" : "아이폰 15", "/stock/" : 10 , "/unitPrice/" : 200000 }
+        Catalogs catalogs = this.checkRequestInfo(map);
 
-        Catalogs catalogs = this.catalogsRepository.findByProductId(productId)
+        log.info("Stock {} is minus",map.get("stock"));
+        catalogs.minusStock((Integer)map.get("stock"));
+    }
+
+    private Catalogs checkRequestInfo(Map<String,Object> map) {
+        Catalogs catalogs = this.catalogsRepository.findByProductId((String)map.get("productId"))
                 .orElseThrow(() -> new RuntimeException("일치하는 카탈로그 정보가 존재하지 않습니다."));
-        catalogs.minusStock(qty);
+
+        if(catalogs.getStock() < (Integer)map.get("stock")) {
+            throw new RuntimeException("주문하는 stock 이 재고보다 많습니다.");
+        }
+
+        if(catalogs.getUnitPrice() != (Integer)map.get("unitPrice")) {
+            throw new RuntimeException("단위 가격이 일치하지 않습니다.");
+        }
+        return catalogs;
     }
 }

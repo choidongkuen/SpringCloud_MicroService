@@ -36,3 +36,6 @@ eureka:
 logging:
   level:
     com.example.service: DEBUG
+
+topic:
+  name: orders-catalogs-topic

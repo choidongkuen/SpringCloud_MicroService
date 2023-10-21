@@ -2,11 +2,9 @@ package com.example.controller;
 
 import com.example.dto.CreateOrdersRequestDto;
 import com.example.dto.GetOrdersResponseDto;
-import com.example.kafka.service.KafkaProducerService;
 import com.example.service.OrdersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,7 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/one")
+@RequestMapping("/two")
 @RestController
 public class OrdersController {
     private final OrdersService ordersService;
