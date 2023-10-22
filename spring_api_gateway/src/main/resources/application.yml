@@ -114,7 +114,7 @@ spring:
         - id: orders-service-02
           uri: lb://ORDERS-SERVICE-02
           predicates:
-            - Path-/orders-service-02/**
+            - Path=/orders-service-02/**
           filters:
             - RewritePath=/orders-service-02/(?<segment>.*), /$\{segment}
 

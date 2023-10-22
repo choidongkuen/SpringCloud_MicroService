@@ -9,12 +9,15 @@ spring:
     import: optional:configserver:http://localhost:8888
     name: orders-service-01
 
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-      settings:
-        web-allow-others: true
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2-console
+#      settings:
+#        web-allow-others: true
+
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
 
   jpa:
     hibernate:

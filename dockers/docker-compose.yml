@@ -1,7 +1,7 @@
 version: "3"
 services:
   mariadb01:
-    image: mariadb:latest
+    image: mariadb
     container_name: orders-service01
     ports:
       - 3300:3306
@@ -10,12 +10,14 @@ services:
       - ./db/data/orders-service01:/var/lib/mysql
     env_file:
       - .env
+    networks:
+      - backend
     environment:
       TZ: Asia/Seoul
     restart: always
 
   mariadb02:
-    image: mariadb:latest
+    image: mariadb
     container_name: orders_service02
     ports:
       - 3301:3306
@@ -24,7 +26,11 @@ services:
       - ./db/data/orders-service02:/var/lib/mysql
     env_file:
       - .env
+    networks:
+      - backend
     environment:
       TZ: Asia/Seoul
     restart: always
 
+networks:
+  backend:

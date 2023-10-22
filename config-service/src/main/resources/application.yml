@@ -19,16 +19,9 @@ spring:
           uri: https://github.com/choidongkuen/spring_cloud_config_repo.git
           # data encryption
 
-  ## config-service actuator
+## config-service actuator
 management:
   endpoints:
     web:
       exposure:
         include: health, busrefresh
-
-
-encrypt:
-  key-store:
-    location: file://${user.home}/Desktop/Github/ecommerceDiscoveryService/keystore/ecommerceEncryptionKey.jks
-    password: test1234
-    alias: ecommerceEncryptionKey

@@ -13,6 +13,9 @@ dependencies {
     // spring cloud config client
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
     runtimeOnly 'com.h2database:h2'
+
+    // mariadb
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 }
 test {
 }
