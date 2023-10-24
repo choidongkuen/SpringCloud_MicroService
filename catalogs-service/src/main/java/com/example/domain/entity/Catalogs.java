@@ -42,7 +42,7 @@ public class Catalogs {
                 .build();
     }
 
-    public void minusProduct(int amount) {
+    public void minusStock(int amount) {
         this.stock -= amount;
     }
 }
