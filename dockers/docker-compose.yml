@@ -1,5 +1,6 @@
 version: "3"
 services:
+
   mariadb01:
     image: mariadb
     container_name: orders-service01
@@ -24,6 +25,22 @@ services:
     volumes:
       - ./db/conf.d/orders-service02:/etc/mysql/conf.d
       - ./db/data/orders-service02:/var/lib/mysql
+    env_file:
+      - .env
+    networks:
+      - backend
+    environment:
+      TZ: Asia/Seoul
+    restart: always
+
+  mariadb03:
+    image: mariadb
+    container_name: catalogs_service
+    ports:
+      - 3302:3306
+    volumes:
+      - ./db/conf.d/catalogs-service:/etc/mysql/conf.d
+      - ./db/data/catalogs-service:/var/lib/mysql
     env_file:
       - .env
     networks:
