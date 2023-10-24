@@ -16,7 +16,7 @@ spring:
       server:
         git:
           # github address
-          uri: https://github.com/choidongkuen/spring_cloud_config_repo.git
+          uri: https://github.com/choidongkuen/spring_cloud_config_repo
           # data encryption
 
 ## config-service actuator

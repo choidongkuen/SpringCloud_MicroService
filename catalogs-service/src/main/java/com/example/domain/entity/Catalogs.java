@@ -45,4 +45,8 @@ public class Catalogs {
     public void minusStock(int amount) {
         this.stock -= amount;
     }
+
+    public void plusStock(int amount) {
+        this.stock += amount;
+    }
 }

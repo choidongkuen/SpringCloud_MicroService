@@ -15,7 +15,7 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/catalogs-service")
+@RequestMapping("/catalogs")
 @RestController
 public class CatalogsController {
     private final CatalogsService catalogsService;
@@ -26,18 +26,18 @@ public class CatalogsController {
                 environment.getProperty("local.server.port"));
     }
 
-    @GetMapping("/catalogs")
+    @GetMapping
     public ResponseEntity<List<GetCatalogsResponseDto>> getAllCatalogs() {
         return ResponseEntity.status(HttpStatus.OK).body(this.catalogsService.getAllCatalogs());
     }
 
-    @PostMapping("/catalogs")
+    @PostMapping
     public ResponseEntity<Long> createCatalogs(
             @RequestBody @Valid CreateCatalogsRequestDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.catalogsService.createCatalogs(request));
     }
 
-    @DeleteMapping("/catalogs/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCatalogs(
             @PathVariable Long id
     ) {

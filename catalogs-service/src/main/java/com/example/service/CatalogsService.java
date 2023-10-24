@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -30,6 +31,14 @@ public class CatalogsService {
 
     @Transactional
     public Long createCatalogs(CreateCatalogsRequestDto request) {
+        // 이미 해당 productId 카탈로그 존재하는 경우
+        if(this.catalogsRepository.findByProductId(request.getProductId()).isPresent()) {
+            Catalogs catalogs = this.catalogsRepository
+                    .findByProductId(request.getProductId()).get();
+            catalogs.plusStock(request.getStock());
+            return catalogs.getId();
+        }
+        // productId 카탈로그 존재하지 않는 경우
         return this.catalogsRepository.save(request.toEntity()).getId();
     }
 
