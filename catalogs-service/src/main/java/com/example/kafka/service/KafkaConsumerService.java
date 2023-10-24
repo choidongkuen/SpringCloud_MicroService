@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.env.Environment;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +19,10 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Service
 public class KafkaConsumerService {
+    private final Environment environment;
     private final CatalogsRepository catalogsRepository;
-
     @Transactional
-    @KafkaListener(topics = "orders-catalogs-topic")
+    @KafkaListener(topics = "orders-catalogs.topic")
     public void updateQty(String kafkaMessage) {
         log.info("KafkaMessage = {}",kafkaMessage);
 

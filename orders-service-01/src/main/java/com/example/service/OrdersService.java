@@ -6,8 +6,10 @@ import com.example.domain.repository.OrdersRepository;
 import com.example.dto.CreateOrdersRequestDto;
 import com.example.dto.GetOrdersResponseDto;
 import com.example.exception.OrderNotFoundException;
+import com.example.kafka.service.KafkaProducerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +22,16 @@ import java.util.stream.Collectors;
 @Service
 public class OrdersService {
     private final OrdersRepository ordersRepository;
+    private final KafkaProducerService kafkaProducerService;
+
+    @Value("${topic.name}")
+    private String topic;
 
     /* 주문 생성 */
     @Transactional
     public Long createOrders(String userId, CreateOrdersRequestDto request) {
+        /* send request to kafka broker */
+        this.kafkaProducerService.sendMessageToKafka(topic,request);
         return this.ordersRepository.save(request.toEntity(UUID.randomUUID().toString(), userId)).getId();
     }
 

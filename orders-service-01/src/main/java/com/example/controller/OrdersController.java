@@ -2,9 +2,11 @@ package com.example.controller;
 
 import com.example.dto.CreateOrdersRequestDto;
 import com.example.dto.GetOrdersResponseDto;
+import com.example.kafka.service.KafkaProducerService;
 import com.example.service.OrdersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,7 @@ public class OrdersController {
     private final OrdersService ordersService;
     private final Environment environment;
 
+
     /** 애플리케이션 상태 체크 **/
     @GetMapping("/health-check")
     public String status() {
@@ -31,14 +34,16 @@ public class OrdersController {
     @PostMapping("/{userId}/orders")
     public ResponseEntity<Long> createOrders(
             @PathVariable String userId,
-            @RequestBody @Valid CreateOrdersRequestDto request) {
+            @RequestBody @Valid CreateOrdersRequestDto request
+    ) {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.ordersService.createOrders(userId,request));
     }
 
     /** 유저가 주문한 모든 주문 조회 **/
     @GetMapping("/users/{userId}/orders")
     public ResponseEntity<List<GetOrdersResponseDto>> getOrdersByUserId(
-            @PathVariable(name = "userId") String userId) {
+            @PathVariable(name = "userId") String userId
+    ) {
         return ResponseEntity.status(HttpStatus.OK).body(this.ordersService.getOrdersByUserId(userId));
     }
 
